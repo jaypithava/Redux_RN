@@ -5,9 +5,8 @@ import {addToCart} from './Redux/action';
 
 const Product = ({item}) => {
   //For Calling action we need to create dispatch
-  const dispatch = useDispatch;
+  const dispatch = useDispatch();
   const handleAddToCart = item => {
-    console.warn('Cannot add to cart', item.id);
     dispatch(addToCart(item));
   };
   return (
