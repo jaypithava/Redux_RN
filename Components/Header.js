@@ -4,15 +4,7 @@ import React from 'react';
 const Header = () => {
   return (
     <View>
-      <Text
-        style={{
-          fontSize: 30,
-          textAlign: 'right',
-          padding: 10,
-          backgroundColor: 'orange',
-        }}>
-        0
-      </Text>
+      <Text style={styles.cartItemStyle}>0</Text>
     </View>
   );
 };
@@ -20,4 +12,11 @@ const Header = () => {
 export default Header;
 
 const styles = StyleSheet.create({
+  cartItemStyle: {
+    fontSize: 30,
+    textAlign: 'right',
+    fontWeight: 'bold',
+    padding: 10,
+    backgroundColor: 'orange',
+  },
 });
