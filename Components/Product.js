@@ -1,7 +1,15 @@
 import {StyleSheet, Text, View, Image, Button} from 'react-native';
 import React from 'react';
+import {useDispatch} from 'react-redux';
+import {addToCart} from './Redux/action';
 
 const Product = ({item}) => {
+  //For Calling action we need to create dispatch
+  const dispatch = useDispatch;
+  const handleAddToCart = item => {
+    console.warn('Cannot add to cart', item.id);
+    dispatch(addToCart(item));
+  };
   return (
     <View>
       <View style={styles.container}>
@@ -15,7 +23,7 @@ const Product = ({item}) => {
         </View>
       </View>
       <View>
-        <Button title="Add to cart" />
+        <Button title="Add to cart" onPress={() => handleAddToCart(item)} />
       </View>
     </View>
   );
