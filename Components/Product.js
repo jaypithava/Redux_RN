@@ -1,14 +1,31 @@
 import {StyleSheet, Text, View, Image, Button} from 'react-native';
-import React from 'react';
-import {useDispatch} from 'react-redux';
-import {addToCart} from './Redux/action';
+import React, {useEffect, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {addToCart, removeFromCart} from './Redux/action';
 
 const Product = ({item}) => {
   //For Calling action we need to create dispatch
   const dispatch = useDispatch();
+  const cartItems = useSelector(state => state.reducer);
+  const [isAdded, setIsAdded] = useState(false);
+
   const handleAddToCart = item => {
     dispatch(addToCart(item));
+    setIsAdded(true);
   };
+
+  const handleRemoveFromCart = item => {
+    dispatch(removeFromCart(item.id));
+    setIsAdded(false);
+  };
+
+  useEffect(() => {
+    if (cartItems && cartItems.length) {
+      const foundItem = cartItems.find(cartItem => cartItem.id === item.id);
+      setIsAdded(!!foundItem);
+    }
+  }, [cartItems, item.id]);
+
   return (
     <View>
       <View style={styles.container}>
@@ -22,7 +39,14 @@ const Product = ({item}) => {
         </View>
       </View>
       <View>
-        <Button title="Add to cart" onPress={() => handleAddToCart(item)} />
+        {isAdded ? (
+          <Button
+            title="Remove to cart"
+            onPress={() => handleRemoveFromCart(item)}
+          />
+        ) : (
+          <Button title="Add to cart" onPress={() => handleAddToCart(item)} />
+        )}
       </View>
     </View>
   );
